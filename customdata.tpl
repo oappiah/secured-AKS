@@ -6,10 +6,6 @@ end
 config system sdn-connector
 	edit "AzureSDN"
 		set type azure
-        set use-metadata-iam disable
-        set tenant-id "${tenantid}"
-        set client-id "${clientid}"
-        set client-secret "${clientsecret}"
         set update-interval 30
 	end
 end

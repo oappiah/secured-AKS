@@ -52,14 +52,22 @@ resource "azurerm_virtual_machine" "fgtavm" {
   }
 }
 
+resource "azurerm_role_assignment" "sdn-connector" {
+  scope = azurerm_resource_group.resourcegroup.id
+  role_definition_name = "Reader"
+  principal_id = azurerm_virtual_machine.fgtavm.identity[0].principal_id
+}
+resource "azurerm_role_assignment" "sdn-aks-permisson" {
+ scope = azurerm_resource_group.resourcegroup.id
+  role_definition_name = "Azure Kubernetes Service Cluster Admin Role"
+  principal_id = azurerm_virtual_machine.fgtavm.identity[0].principal_id
+}
+
 data "template_file" "fgt_custom_data" {
   template = file("${path.module}/customdata.tpl")
 
   vars = {
     fgt_username = var.username
-    clientid = "${azuread_service_principal.fgtconnector_sp.application_id}"
-    clientsecret = "${azuread_service_principal_password.fgtconnector_password.value}"
-    tenantid = "${data.azuread_client_config.current.tenant_id}"
   }
 }
 resource "azurerm_network_interface" "fgt-EXT" {
