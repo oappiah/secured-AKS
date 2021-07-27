@@ -28,18 +28,6 @@ resource "azurerm_linux_virtual_machine" "jumphost" {
     sku       = "18.04-LTS"
     version   = "latest"
   }
-  #provisioner "file" {
-  #source      = "files/jumphost_homedir/"
-  #destination = "/home/${var.username}"
-
-  #connection {
-  #  type     = "ssh"
-  #  user     = var.username
-    #password = "${var.root_password}"
-  #  host     = azurerm_public_ip.fgtpip.ip_address
-  #  port     = "8022"
-  #}
-#}
 
   custom_data = "${filebase64("files/jumphost-init.sh")}"
 }
