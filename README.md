@@ -28,7 +28,6 @@ password = "D0ntUseThisPassword"
 
 * Some real docs on how to use this, current state of this README is more tracking what needs to be done
 
-* Bigger network for 3-5 Autoscale AKS
 * More variables , less hardcoded IP's
 * Replace outputs with a summary.tpl
 
@@ -42,3 +41,5 @@ password = "D0ntUseThisPassword"
 #### Known issues
 
 * AKS creation taking forever can be a provsioning quota issue and/or the fortios template breaking and ending up with no config making AKS nodes unable to reach any network. Also note that `terraform destroy` after this kind of issue tends to get suck and deleting the resource group(s) manually might work faster.
+
+* Permission for the AKS cluster LB can take some time, if you are quick with deploying the voteapp you might see this `Warning  SyncLoadBalancerFailed  3m3s (x3 over 3m18s)   service-controller  Error syncing load balancer: failed to ensure load balancer: Retriable: false, RetryAfter: 0s, HTTPStatusCode: 403, RawError: Retriable: false, RetryAfter: 0s, HTTPStatusCode: 403, RawError: {"error":{"code":"AuthorizationFailed","message":"The client '..........` .

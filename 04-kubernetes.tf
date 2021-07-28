@@ -17,11 +17,11 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   
   default_node_pool {
     name       = "default"
-    node_count = 2
+    node_count = 3
     vm_size    = "Standard_B2ms"
-  #  enable_auto_scaling = true
-  #  min_count = 3
-  #  max_count = 5
+    enable_auto_scaling = true
+    min_count = 3
+    max_count = 5
     vnet_subnet_id = azurerm_subnet.subnet3.id
   }
 
