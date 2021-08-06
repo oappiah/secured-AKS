@@ -43,10 +43,22 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     type = "SystemAssigned"
   }
 }
+resource "null_resource" "kubeconfig_jumphost" {
+  depends_on = [
+    azurerm_linux_virtual_machine.jumphost
+  ]
+  connection {
+    type     = "ssh"
+    host     = azurerm_public_ip.fgtpip.ip_address
+    user     = "${var.username}"
+    private_key = "${file("~/.ssh/id_rsa")}"
+    port     = 8022
+  }
 
-resource "local_file" "kubeconfigdemo" {
-    content  = azurerm_kubernetes_cluster.k8s.kube_config_raw
-    filename = "files/jumphost_dir/kubeconfig"
+  provisioner "file" {
+    content      = azurerm_kubernetes_cluster.k8s.kube_config_raw
+    destination = "/home/${var.username}/.kube/config"
+  }
 }
 
 # https://github.com/Azure/AKS/issues/357#issuecomment-388297027

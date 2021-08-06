@@ -28,7 +28,19 @@ resource "azurerm_linux_virtual_machine" "jumphost" {
     sku       = "18.04-LTS"
     version   = "latest"
   }
-
+  provisioner "remote-exec" {
+    inline = [
+      "mkdir /home/${var.username}/.kube"
+    ]
+    connection {
+    type     = "ssh"
+    host     = azurerm_public_ip.fgtpip.ip_address
+    user     = "${var.username}"
+    private_key = "${file("~/.ssh/id_rsa")}"
+    port     = 8022
+  }
+  
+  }
   custom_data = "${filebase64("files/jumphost-init.sh")}"
 }
 

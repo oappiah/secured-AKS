@@ -20,9 +20,8 @@ password = "D0ntUseThisPassword"
 1) Run `terraform` (`init` , `plan` , `apply` ...)
 2) Output will show you how to copy the files to jumphost
 3) Output will show how to login to the jumphost
-4) (jumphost#) copy the kubeconfig demo to ~/.kube/config
-5) kubectl apply -f vote-app.yaml to launch the vote application on AKS
-6) Configure the VIP...  [original instructions](https://github.com/fortinet-solutions-cse/secured-AKS-refarch/blob/main/docs/Hands_on_demos.md) minus the inspection for now.
+4) kubectl apply -f vote-app.yaml to launch the vote application on AKS
+5) Configure the VIP...  [original instructions](https://github.com/fortinet-solutions-cse/secured-AKS-refarch/blob/main/docs/Hands_on_demos.md) minus the inspection for now.
 
 ### TODO
 
