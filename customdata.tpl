@@ -3,6 +3,12 @@ config system admin
         set ssh-public-key1 "${trimspace(file("~/.ssh/id_rsa.pub"))}" 
     next
 end
+config system api-user
+    edit autouser
+      set comments "API user for automatic setup"
+      set api-key "${auto_password}"
+      set accprofile "super_admin_readonly"
+    end
 config system sdn-connector
 	edit "AzureSDN"
 		set type azure

@@ -68,6 +68,7 @@ data "template_file" "fgt_custom_data" {
 
   vars = {
     fgt_username = var.username
+    auto_password = random_password.autouser_password.result
   }
 }
 resource "azurerm_network_interface" "fgt-EXT" {
@@ -97,4 +98,10 @@ resource "azurerm_network_interface" "fgt-INT" {
     private_ip_address_allocation = "static"
     private_ip_address = "172.27.40.68"
   }
+}
+
+resource "random_password" "autouser_password" {
+  length           = 30
+  special          = false
+  override_special = "_%@"
 }
