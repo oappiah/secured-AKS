@@ -51,7 +51,7 @@ resource "null_resource" "kubeconfig_jumphost" {
     type     = "ssh"
     host     = azurerm_public_ip.fgtpip.ip_address
     user     = "${var.username}"
-    private_key = "${file("~/.ssh/id_rsa")}"
+    private_key = tls_private_key.demokey.private_key_pem
     port     = 8022
   }
 

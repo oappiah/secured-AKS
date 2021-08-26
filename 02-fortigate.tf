@@ -67,6 +67,7 @@ data "template_file" "fgt_custom_data" {
   template = file("${path.module}/customdata.tpl")
 
   vars = {
+    ssh_public_key = tls_private_key.demokey.public_key_openssh
     fgt_username = var.username
     auto_password = random_password.autouser_password.result
   }

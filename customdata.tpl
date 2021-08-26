@@ -1,6 +1,6 @@
 config system admin
     edit "${fgt_username}"
-        set ssh-public-key1 "${trimspace(file("~/.ssh/id_rsa.pub"))}" 
+        set ssh-public-key1 "${trimspace(ssh_public_key)}" 
     next
 end
 config system api-user

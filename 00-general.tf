@@ -40,6 +40,16 @@ data "template_file" "post" {
     crg = azurerm_kubernetes_cluster.k8s.node_resource_group
   }
 }
+resource "tls_private_key" "demokey" {
+  algorithm   = "RSA"
+  ecdsa_curve = "P384"
+}
+
+resource "local_file" "demokey" {
+  filename = "files/demokey.pem"
+  content = tls_private_key.demokey.private_key_pem
+  file_permission = 0700
+}
 
 resource "local_file" "post" {
   filename = "files/post.yaml"

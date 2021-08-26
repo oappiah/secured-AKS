@@ -3,10 +3,10 @@ output "HTTPS_FGT" {
 
 }
 output "FGT_SSH_ACCESS" {
-    value = "ssh ${var.username}@${azurerm_public_ip.fgtpip.ip_address}"
+    value = "ssh ${var.username}@${azurerm_public_ip.fgtpip.ip_address} -i files/demokey.pem"
 }
 output "JUMPBOX_SSH_ACCESS" {
-    value = "ssh ${var.username}@${azurerm_public_ip.fgtpip.ip_address} -p8022"
+    value = "ssh ${var.username}@${azurerm_public_ip.fgtpip.ip_address} -p8022 -i files/demokey.pem"
 }
 
 output "Next_step" {
