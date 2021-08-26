@@ -42,7 +42,9 @@
   - name: Install pip packages
     pip:
       name:
-      - openshift
+      - kubernetes==11.0.0
+      - openshift==0.12.1
+
 
   - name: Deploy the voteapp 
     k8s:
