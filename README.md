@@ -26,7 +26,6 @@ password = "D0ntUseThisPassword"
 
 * Move away from cloud-init to Ansible post?
 * Some real docs on how to use this, current state of this README is more tracking what needs to be done
-* Requirements (other then Terraform and Ansible version) needs to be documented.
 
 * More variables , less hardcoded IP's.
 * Replace outputs with a summary text.

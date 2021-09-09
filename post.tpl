@@ -23,7 +23,7 @@
 
   #TODO: Replace when I figure out how to the VMSS name in terraform...
   - name: Get VMSS name
-    shell: az vmss list --resource-group MC_demo999-RG_aks01_northeurope --query '[].name' -o tsv
+    shell: az vmss list --resource-group ${crg} --query '[].name' -o tsv
     register: vmss_name
     delegate_to: 127.0.0.1
   
