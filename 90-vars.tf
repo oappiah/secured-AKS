@@ -4,6 +4,16 @@ variable "location" {
   default = "northeurope"
 }
 
+/// License part begin
+variable "fgtsku" {
+  default = "fortinet_fg-vm_payg_20190624"
+  description = "PAYG (fortinet_fg-vm_payg_20190624) or BYOL (fortinet_fg-vm)"
+}
+variable "fgt_license_file" {
+  default = ""
+  description = "Keep empty if using PAYG"
+}
+/// License part end
 variable "prefix" {
   description = "prefix to resources created"  
   type = string
