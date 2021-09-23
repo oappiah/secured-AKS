@@ -55,3 +55,8 @@ resource "local_file" "post" {
   filename = "files/post.yaml"
   content = data.template_file.post.rendered
 }
+
+resource "random_string" "random" {
+  length  = 5
+  special = false
+}
