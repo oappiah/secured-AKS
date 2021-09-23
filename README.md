@@ -30,7 +30,6 @@ password = "D0ntUseThisPassword"
 * More variables , less hardcoded IP's.
 * Replace outputs with a summary text.
 
-* Add BYOL license option
 * Port2 Interface config differs from orignal script (Does it matter?)
 * UDR on the Jumpsubnet needs adjustment(?)
 

@@ -1,3 +1,13 @@
+
+Content-Type: multipart/mixed; boundary="===============0086047718136476635=="
+MIME-Version: 1.0
+
+--===============0086047718136476635==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="config"
+
 config system admin
     edit "${fgt_username}"
         set ssh-public-key1 "${trimspace(ssh_public_key)}" 
@@ -76,3 +86,14 @@ config firewall policy
         set logtraffic-start enable
     next
 end
+%{ if fgt_license_file != "" }
+--===============0086047718136476635==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="${fgt_license_file}"
+
+${file(fgt_license_file)}
+
+%{ endif }
+--===============0086047718136476635==--

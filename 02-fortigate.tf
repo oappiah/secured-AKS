@@ -15,13 +15,13 @@ resource "azurerm_virtual_machine" "fgtavm" {
   plan {
     publisher = "fortinet"
     product   = "fortinet_fortigate-vm_v5"
-    name      = "fortinet_fg-vm_payg_20190624"
+    name      = var.fgtsku
   }
   
    storage_image_reference {
     publisher = "fortinet"
     offer     = "fortinet_fortigate-vm_v5"
-    sku       = "fortinet_fg-vm_payg_20190624"
+    sku       = var.fgtsku
     version   = "latest"
   }
 
@@ -70,6 +70,7 @@ data "template_file" "fgt_custom_data" {
     ssh_public_key = tls_private_key.demokey.public_key_openssh
     fgt_username = var.username
     auto_password = random_password.autouser_password.result
+    fgt_license_file = var.fgt_license_file
   }
 }
 resource "azurerm_network_interface" "fgt-EXT" {
