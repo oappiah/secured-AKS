@@ -16,7 +16,6 @@ sudo apt-get update && (sudo apt-get -y install bash-completion kubectl openssh-
 # Must use python3 or the fortios ansible modules do not work
 sudo pip3 --no-cache-dir install --upgrade pip
 sudo pip3 --no-cache-dir install ansible
-#sudo pip3 --no-cache-dir install ansible==2.11.3 In case we want to lock the version...
 # see https://galaxy.ansible.com/fortinet/fortios
 ansible-galaxy collection install fortinet.fortios
 az extension add --name aks-preview

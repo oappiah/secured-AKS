@@ -67,7 +67,9 @@ data "template_file" "fgt_custom_data" {
   template = file("${path.module}/customdata.tpl")
 
   vars = {
+    ssh_public_key = tls_private_key.demokey.public_key_openssh
     fgt_username = var.username
+    auto_password = random_password.autouser_password.result
   }
 }
 resource "azurerm_network_interface" "fgt-EXT" {
@@ -97,4 +99,10 @@ resource "azurerm_network_interface" "fgt-INT" {
     private_ip_address_allocation = "static"
     private_ip_address = "172.27.40.68"
   }
+}
+
+resource "random_password" "autouser_password" {
+  length           = 30
+  special          = false
+  override_special = "_%@"
 }

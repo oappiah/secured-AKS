@@ -1,5 +1,5 @@
 resource "azurerm_container_registry" "acr" {
-  name                = "${var.prefix}acr"
+  name                = "${var.prefix}acr${random_string.random.result}"
   location                      = azurerm_resource_group.resourcegroup.location
   resource_group_name           = azurerm_resource_group.resourcegroup.name
   sku                 = "Basic"
@@ -43,10 +43,22 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     type = "SystemAssigned"
   }
 }
+resource "null_resource" "kubeconfig_jumphost" {
+  depends_on = [
+    azurerm_linux_virtual_machine.jumphost
+  ]
+  connection {
+    type     = "ssh"
+    host     = azurerm_public_ip.fgtpip.ip_address
+    user     = "${var.username}"
+    private_key = tls_private_key.demokey.private_key_pem
+    port     = 8022
+  }
 
-resource "local_file" "kubeconfigdemo" {
-    content  = azurerm_kubernetes_cluster.k8s.kube_config_raw
-    filename = "files/jumphost_dir/kubeconfig"
+  provisioner "file" {
+    content      = azurerm_kubernetes_cluster.k8s.kube_config_raw
+    destination = "/home/${var.username}/.kube/config"
+  }
 }
 
 # https://github.com/Azure/AKS/issues/357#issuecomment-388297027

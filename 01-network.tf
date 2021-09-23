@@ -21,9 +21,7 @@ resource "azurerm_subnet" "subnet2" {
 
 resource "azurerm_subnet" "subnet3" {
   name                 = "${var.prefix}-ProtectedSubnet"
-  #BELOW IS A TEST , KEEPS CHANGING#
   enforce_private_link_endpoint_network_policies = true
-  #END TEST
   resource_group_name  = azurerm_resource_group.resourcegroup.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["172.27.41.0/24"]

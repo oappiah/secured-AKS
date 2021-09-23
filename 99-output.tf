@@ -3,12 +3,12 @@ output "HTTPS_FGT" {
 
 }
 output "FGT_SSH_ACCESS" {
-    value = "ssh ${var.username}@${azurerm_public_ip.fgtpip.ip_address}"
-}
-
-output "COPY_FILE_TO_JUMPHOST" {
-    value = "scp -P8022 -r files/jumphost_dir/ ${var.username}@${azurerm_public_ip.fgtpip.ip_address}: " 
+    value = "ssh ${var.username}@${azurerm_public_ip.fgtpip.ip_address} -i files/demokey.pem"
 }
 output "JUMPBOX_SSH_ACCESS" {
-    value = "ssh ${var.username}@${azurerm_public_ip.fgtpip.ip_address} -p8022"
+    value = "ssh ${var.username}@${azurerm_public_ip.fgtpip.ip_address} -p8022 -i files/demokey.pem"
+}
+
+output "Next_step" {
+    value = "Text on how to run ansible ... ansible-playbook -i files/inventory files/post.yaml"
 }

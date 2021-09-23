@@ -14,7 +14,8 @@ resource "azurerm_linux_virtual_machine" "jumphost" {
 
   admin_ssh_key {
     username   =  var.username
-    public_key = file("~/.ssh/id_rsa.pub")
+    #public_key = file("~/.ssh/id_rsa.pub")
+    public_key = tls_private_key.demokey.public_key_openssh
   }
 
   os_disk {
@@ -28,7 +29,20 @@ resource "azurerm_linux_virtual_machine" "jumphost" {
     sku       = "18.04-LTS"
     version   = "latest"
   }
-
+  provisioner "remote-exec" {
+    inline = [
+      "mkdir /home/${var.username}/.kube"
+    ]
+    connection {
+    type     = "ssh"
+    host     = azurerm_public_ip.fgtpip.ip_address
+    user     = "${var.username}"
+    private_key = tls_private_key.demokey.private_key_pem
+    #private_key = "${file("~/.ssh/id_rsa")}"
+    port     = 8022
+  }
+  
+  }
   custom_data = "${filebase64("files/jumphost-init.sh")}"
 }
 

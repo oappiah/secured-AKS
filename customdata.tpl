@@ -1,8 +1,14 @@
 config system admin
     edit "${fgt_username}"
-        set ssh-public-key1 "${trimspace(file("~/.ssh/id_rsa.pub"))}" 
+        set ssh-public-key1 "${trimspace(ssh_public_key)}" 
     next
 end
+config system api-user
+    edit autouser
+      set comments "API user for automatic setup"
+      set api-key "${auto_password}"
+      set accprofile "super_admin_readonly"
+    end
 config system sdn-connector
 	edit "AzureSDN"
 		set type azure

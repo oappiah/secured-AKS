@@ -22,7 +22,7 @@ spec:
         "beta.kubernetes.io/os": linux
       containers:
       - name: azure-vote-back
-        image: redis
+        image: mcr.microsoft.com/oss/bitnami/redis:6.0.8
         resources:
           requests:
             cpu: 100m
@@ -33,6 +33,9 @@ spec:
         ports:
         - containerPort: 6379
           name: redis
+        env:
+        - name: "ALLOW_EMPTY_PASSWORD"
+          value: "true"
 ---
 apiVersion: v1
 kind: Service
