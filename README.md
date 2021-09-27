@@ -24,11 +24,9 @@ password = "D0ntUseThisPassword"
 
 ### TODO
 
-* Move away from cloud-init to Ansible post?
 * Some real docs on how to use this, current state of this README is more tracking what needs to be done
 
 * More variables , less hardcoded IP's.
-* Replace outputs with a summary text.
 
 * Port2 Interface config differs from orignal script (Does it matter?)
 * UDR on the Jumpsubnet needs adjustment(?)
