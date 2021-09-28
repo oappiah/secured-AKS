@@ -51,18 +51,3 @@
       state: present
       definition: "{{ lookup('file', 'voting-app.yaml') }}"
       wait: yes
-  
-  - name: Delay for the loadbalancer
-    wait_for:
-      timeout: 60
-
-  - name: Get an existing Service object
-    k8s_info:
-      api_version: v1
-      kind: Service
-      name: azure-vote-front
-      namespace: voteapp
-    register: web_service
-  
-  - debug:
-      msg: "{{web_service | json_query('resources[*].status.loadBalancer.ingress') }}"

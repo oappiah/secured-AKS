@@ -41,4 +41,6 @@ password = "D0ntUseThisPassword"
 
 * Permission for the AKS cluster LB can take some time, if you are quick with deploying the voteapp you might see this `Warning  SyncLoadBalancerFailed  3m3s (x3 over 3m18s)   service-controller  Error syncing load balancer: failed to ensure load balancer: Retriable: false, RetryAfter: 0s, HTTPStatusCode: 403, RawError: Retriable: false, RetryAfter: 0s, HTTPStatusCode: 403, RawError: {"error":{"code":"AuthorizationFailed","message":"The client '..........` .
 
-* Cloud-init gets stuck in apt(?!)
+* Cloud-init can get stuck in apt(?!)
+
+* Adding the dynamic address in Real servers [during provision](customdata.tpl) seems to cause an issue, just removing it and adding it back again makes it work. 

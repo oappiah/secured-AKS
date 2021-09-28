@@ -42,11 +42,23 @@ config router static
         next
     end
 config firewall address
+    edit "dynVoteApp"
+        set type dynamic
+        set sdn "AzureSDN"
+        set color 19
+        set filter "K8S_ServiceName=azure-vote-front"
+        set sdn-addr-type public
+    next
     edit "K8SNetwork"
         set subnet "172.27.41.0/24"
     next
     edit "JumpNetwork"
         set subnet "172.27.42.0/24"
+    next
+end
+config firewall ldb-monitor
+    edit "votemon"
+       set type tcp
     next
 end
 config firewall vip
@@ -57,6 +69,23 @@ config firewall vip
         set portforward enable
         set extport 8022
         set mappedport 22
+    next
+    edit "VoteAPP"
+        set type server-load-balance
+        set extip "172.27.40.4"
+        set extintf "port1"
+        set monitor "votemon"
+        set server-type http
+        set http-ip-header enable
+        set extport 8080
+        config realservers
+            edit 1
+                set type address
+                set address "dynVoteApp"
+                set port 80
+                set max-connections 999
+            next
+        end
     next
 end
 config firewall policy
@@ -84,6 +113,19 @@ config firewall policy
         set service "SSH"
         set logtraffic all
         set logtraffic-start enable
+    next
+    edit 50
+        set name "VoteAPP-IN"
+        set srcintf "port1"
+        set dstintf "port2"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "VoteAPP"
+        set schedule "always"
+        set service "HTTP"
+        set inspection-mode proxy
+        set logtraffic all
+        set nat enable
     next
 end
 %{ if fgt_license_file != "" }
